@@ -2,34 +2,26 @@ package modelo;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.EntityManager;
 
 @Entity
-@Table(name="cellpedia_metodos")
+@Table(name="CodigoModelo")
 public class CodigoModelo implements Serializable{
-	  protected EntityManager em;
-	  
-	  public CodigoModelo(EntityManager em) {
-		    this.em = em;
-	  }
-	  
-	private static final long serialVersionUID=1;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue
+	
 	private int id;
-	@Column
 	private String unit;
-
-	@Column
 	private String pasName;
-	@Column
 	private String procFunc;
-	@Column
 	private int numLinha;
-	@Column
 	private String metodo;
 	
 	

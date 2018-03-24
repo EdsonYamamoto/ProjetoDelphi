@@ -18,7 +18,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-
 //import com.mysql.jdbc.util.PropertiesDocGenerator;
 
 import java.lang.String;
@@ -34,7 +33,7 @@ import modelo.Procura;
 public class AppPrinc {
 
 	//private String diretorio = "C:/XPCell/Fontes/fntXpCellProducaoSorocaba";
-	private String diretorio = "C:/Users/edson.kazumi/Desktop/teste"; //teste
+	private String diretorio = "C:/Users/Edson/Desktop/Teste"; //teste
 	private String extensao = "pas";
 
 	public String tipoArquivoSaida = ".txt";
@@ -86,7 +85,7 @@ public class AppPrinc {
 	//modo simplificado retorna o tipo de coisa encontrado na linha como por exemplo if's e else's
 	public boolean modoSimplificado= false;
 	//imprimi diretamente no console
-	public boolean modoImprimir= false;
+	public boolean modoImprimir= true;
 	//imprimi todo o codigo do modo imprimir num arquivo especifico
 	public boolean escritaEmArquivo= false;
 	//imprimi procura
@@ -114,30 +113,6 @@ public class AppPrinc {
 		
 	}
 	
-	private static void criarBancoDeMetodos(CodigoModelo modeloCodigo) {
-		EntityManagerFactory emf ;
-		EntityManager        em;
-
-		emf  = Persistence.createEntityManagerFactory("CodigoModelo");
-		em = emf.createEntityManager();
-		
-		em.getTransaction().begin();
-			em.persist(modeloCodigo);
-		em.close();
-	    em.getTransaction().commit();
-	    System.out.println("Persisted");
-	    em.close();
-		//em.createNativeQuery("select * from cellpedia_metodo");
-		
-		/*
-		em.getTransaction().begin();
-		em.persist(modeloCodigo);
-		em.close();
-		em.getTransaction().commit();
-		*/
-
-		emf .close();
-	}
 
 	public AppPrinc() throws IOException {
 		File file = new File(diretorio);
@@ -207,13 +182,41 @@ public class AppPrinc {
 
 	public void listarMetodos()
 	{
+		EntityManagerFactory emf;
+		EntityManager        em;
 
-		
-		for (CodigoModelo c : listaCodigos) {
-			criarBancoDeMetodos(c);
+		emf  = Persistence.createEntityManagerFactory("ProjetoAbella");
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		for (CodigoModelo c : listaCodigos) 
+		{
+			
+				em.persist(c);
+		    System.out.println("persistiu!");
 			System.out.println(c);
 		}
+		em.close();
+	    em.getTransaction().commit();
+
+		emf .close();
 	}
+	
+
+	private void criarBancoDeMetodos(CodigoModelo modeloCodigo) {
+		EntityManagerFactory emf;
+		EntityManager        em;
+
+		emf  = Persistence.createEntityManagerFactory("ProjetoAbella");
+		em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+			em.persist(modeloCodigo);
+		em.close();
+	    em.getTransaction().commit();
+	    System.out.println("persistiu!");
+		emf .close();
+	}
+	
 	public static String repeat(String str, int times) {
         return new String(new char[times]).replace("\0", str);
     }
